@@ -1,0 +1,17 @@
+{
+  "recipeName": "",
+  "servings": "1",
+  "method": "",
+  "gstRate": "10",
+  "sellPrice": "3",
+  "ingredients": [
+    {
+      "ingredientName": "",
+      "qtyPurchased": "",
+      "purchaseUnit": "g",
+      "costGoods": "",
+      "qtyUsed": "",
+      "recipeUnit": "g"
+    }
+  ]
+}

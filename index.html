@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stellarossa Recipe Costing</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg-blur"></div>
+  <main class="page-wrap">
+    <header class="hero-card">
+      <div class="brand-wrap">
+        <img src="assets/stellarossa-logo.svg" alt="Stellarossa logo" class="brand-logo">
+        <div>
+          <h1>Stellarossa Costing Template</h1>
+          <p>Offline recipe and drink costing template for food, coffee, smoothies, shakes, juices and more.</p>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <button id="chooseFolderBtn" class="btn btn-red">Choose Recipe Folder</button>
+        <button id="newRecipeBtn" class="btn btn-light">New Recipe</button>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2>Recipe Details</h2>
+      <div class="grid-two">
+        <label>
+          <span>Recipe Name</span>
+          <input id="recipeName" type="text" placeholder="Example: Iced Latte">
+        </label>
+        <label>
+          <span>Recipe Type</span>
+          <select id="recipeType">
+            <option>Food</option>
+            <option>Hot Drink</option>
+            <option>Cold Drink</option>
+            <option>Coffee</option>
+            <option>Milkshake</option>
+            <option>Smoothie</option>
+            <option>Juice</option>
+            <option>Dessert</option>
+          </select>
+        </label>
+        <label>
+          <span>Number of Servings</span>
+          <input id="servings" type="number" min="1" step="1" value="1">
+        </label>
+        <label>
+          <span>Recipe Yield Unit</span>
+          <select id="yieldUnit">
+            <option>serve</option>
+            <option>cup</option>
+            <option>glass</option>
+            <option>bottle</option>
+            <option>mug</option>
+            <option>slice</option>
+            <option>portion</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="full-width">
+        <span>Method</span>
+        <textarea id="method" rows="5" placeholder="Write the recipe method here..."></textarea>
+      </label>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <h2>Ingredients</h2>
+        <p>Add food or drink ingredients. Costing updates automatically.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table id="ingredientsTable">
+          <thead>
+            <tr>
+              <th>Ingredient Name</th>
+              <th>Qty Purchased</th>
+              <th>Purchase Unit</th>
+              <th>Cost of Goods ($)</th>
+              <th>Qty Used</th>
+              <th>Recipe Unit</th>
+              <th>Total Cost ($)</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="ingredientsBody"></tbody>
+        </table>
+      </div>
+
+      <div class="button-row">
+        <button id="addIngredientBtn" class="btn btn-blue">+ Add Ingredient</button>
+        <button id="printBtn" class="btn btn-light">Print / Save PDF</button>
+        <button id="downloadBtn" class="btn btn-green">Recipe Download</button>
+        <button id="loadBtn" class="btn btn-dark">Load Recipe File</button>
+        <button id="clearBtn" class="btn btn-red">Clear Form</button>
+        <input id="fileLoader" type="file" accept=".json" hidden>
+      </div>
+
+      <div class="stats-grid">
+        <label class="stat-box editable">
+          <span>Total Batch Cost</span>
+          <strong id="totalBatchCost">$0.00</strong>
+        </label>
+        <label class="stat-box input-stat">
+          <span>GST %</span>
+          <input id="gstPercent" type="number" min="0" step="0.01" value="10">
+        </label>
+        <label class="stat-box">
+          <span>Batch Cost Inc GST</span>
+          <strong id="batchCostIncGst">$0.00</strong>
+        </label>
+        <label class="stat-box">
+          <span>Cost Per Serve</span>
+          <strong id="costPerServe">$0.00</strong>
+        </label>
+        <label class="stat-box input-stat">
+          <span>Selling Price Per Serve</span>
+          <input id="sellingPrice" type="number" min="0" step="0.01" value="0">
+        </label>
+        <label class="stat-box">
+          <span>Gross Profit Per Serve</span>
+          <strong id="grossProfitPerServe">$0.00</strong>
+        </label>
+        <label class="stat-box">
+          <span>Food / Drink Cost %</span>
+          <strong id="foodCostPercent">0.00%</strong>
+        </label>
+        <label class="stat-box">
+          <span>Markup %</span>
+          <strong id="markupPercent">0.00%</strong>
+        </label>
+        <label class="stat-box status-box">
+          <span>Recipe Status</span>
+          <strong id="recipeStatus">Needs Review</strong>
+        </label>
+      </div>
+
+      <p class="footnote">Tip: Click <strong>Choose Recipe Folder</strong> first. In supported browsers, the recipe file can save straight into your recipe folder. If not supported, it will download normally and you can move it into the recipes folder manually.</p>
+    </section>
+  </main>
+
+  <template id="ingredientRowTemplate">
+    <tr>
+      <td><input type="text" class="ingredient-name" placeholder="Milk"></td>
+      <td><input type="number" class="qty-purchased" min="0" step="0.001" placeholder="1000"></td>
+      <td>
+        <select class="purchase-unit">
+          <option value="g">g</option>
+          <option value="kg">kg</option>
+          <option value="ml">ml</option>
+          <option value="l">L</option>
+          <option value="each">each</option>
+          <option value="pack">pack</option>
+          <option value="bottle">bottle</option>
+          <option value="tin">tin</option>
+          <option value="tray">tray</option>
+        </select>
+      </td>
+      <td><input type="number" class="cost-goods" min="0" step="0.01" placeholder="4.50"></td>
+      <td><input type="number" class="qty-used" min="0" step="0.001" placeholder="250"></td>
+      <td>
+        <select class="recipe-unit">
+          <option value="g">g</option>
+          <option value="kg">kg</option>
+          <option value="ml">ml</option>
+          <option value="l">L</option>
+          <option value="each">each</option>
+          <option value="pack">pack</option>
+          <option value="bottle">bottle</option>
+          <option value="tin">tin</option>
+          <option value="tray">tray</option>
+          <option value="shot">shot</option>
+          <option value="scoop">scoop</option>
+        </select>
+      </td>
+      <td class="row-total">$0.00</td>
+      <td><button class="btn btn-delete delete-row">Delete</button></td>
+    </tr>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
